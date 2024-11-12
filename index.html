@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boussole Interactive</title>
+  <style>
+    /* Style pour centrer la boussole */
+    #boussole-container {
+      position: relative;
+      width: 200px;  /* Ajustez la taille de la boussole */
+      height: 200px;
+      margin: 100px auto; /* Centrer la boussole */
+      background-image: url('boussole.png'); /* Image de fond pour la boussole */
+      background-size: cover;
+      border-radius: 50%;
+    }
+
+    #aiguille {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform-origin: center; /* Point de rotation au centre de l'aiguille */
+      transform: translate(-50%, -50%); /* Centrer l’aiguille sur la boussole */
+      width: 100px; /* Ajustez la largeur de l'image de l'aiguille */
+      height: auto; /* Conserver les proportions de l'image */
+    }
+  </style>
+</head>
+<body>
+  <div id="boussole-container">
+    <!-- Remplacez le div par une image PNG pour l’aiguille -->
+    <img src="aiguille.png" alt="Aiguille" id="aiguille">
+  
+  </
+</div>
+
+  <script>
+    const aiguille = document.getElementById("aiguille");
+    const boussoleContainer = document.getElementById("boussole-container");
+
+    // Calculer le centre de la boussole
+    const centerX = boussoleContainer.offsetWidth / 2;
+    const centerY = boussoleContainer.offsetHeight / 2;
+
+    boussoleContainer.addEventListener("mousemove", (e) => {
+      // Obtenir la position de la souris par rapport au centre de la boussole
+      const mouseX = e.clientX - boussoleContainer.getBoundingClientRect().left;
+      const mouseY = e.clientY - boussoleContainer.getBoundingClientRect().top;
+
+      // Calculer l'angle entre le centre de la boussole et la position de la souris
+      const angle = Math.atan2(mouseY - centerY, mouseX - centerX) * (180 / Math.PI);
+
+      // Appliquer la rotation à l'image de l'aiguille pour que seules les extrémités bougent
+      aiguille.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
+    });
+  </script>
+</body>
+</html>
